@@ -57,8 +57,6 @@ If you want to use custom control center and local icons:
 ## Screenshots
 
 ![Main View](./screenshots/main.jpg)
-![Control Center](./screenshots/control-center.jpg)
-
 
 ## Credits
 
