@@ -54,7 +54,7 @@ layout:
       header: false
       style: row
       columns: 1
-    Authentik:
+    Duplicati:
       header: false
       style: row
       columns: 1
