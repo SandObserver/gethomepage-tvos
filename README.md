@@ -61,4 +61,6 @@ If you want to use custom control center and local icons:
 ## Credits
 
 - Homepage — https://gethomepage.dev  
-- Apple TV Card animation — https://github.com/marcreichel/apple-tv-card  
+- Apple TV Card animation — https://github.com/marcreichel/apple-tv-card
+- [Conduit widget](./conduit-widget.md) - https://github.com/ssmirr/conduit
+- Duplicati widget - https://wsj-br.github.io/duplistatus/user-guide/homepage-integration
