@@ -29,7 +29,7 @@ li[data-name="Nzbget"] {
 }
 
 /* unique gradients */
-li[data-name="Authentik"]         { --bg-colors: #fd4b2d, #715296; }
+li[data-name="Duplicati"]         { --bg-colors: #0074C5, #012985; }
 li[data-name="Homebridge"]        { --bg-colors: #ca2e9f, #673ab7; }
 li[data-name="Adguard Home"]      { --bg-colors: #5eba00, #00a952; }
 li[data-name="Cloudflare Tunnel"] { --bg-colors: #f48120, #ef5a60; }
