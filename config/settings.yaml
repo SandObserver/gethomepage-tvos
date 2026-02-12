@@ -1,0 +1,116 @@
+title: Homepage
+headerStyle: clean
+theme: dark
+color: slate
+useEqualHeights: true
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: true
+hideVersion: true
+background:
+  image: 'https://images.unsplash.com/photo-1526762215-67c4e8605738?q=80&w=3266&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  brightness: 70
+  opacity: 100
+statusStyle: dot
+disableCollapse: true
+bookmarksStyle: icons
+layout:
+  Home:
+    header: false
+    style: row
+    columns: 4
+    useEqualHeights: true
+    Info:
+      header: false
+      style: row
+      columns: 1
+    CPU:
+      header: false
+      style: row
+      columns: 1
+    Conduit:
+      header: false
+      style: row
+      columns: 1
+    Homebridge:
+      header: false
+      style: row
+      columns: 1
+  Row1:
+    header: false
+    style: row
+    columns: 4
+    Ethernet:
+      header: false
+      style: row
+      columns: 1
+    Adguard Home:
+      header: false
+      style: row
+      columns: 1
+    Cloudflare Tunnel:
+      header: false
+      style: row
+      columns: 1
+    Authentik:
+      header: false
+      style: row
+      columns: 1
+  Row2:
+    header: false
+    style: row
+    columns: 4
+    Plex:
+      header: false
+      style: row
+      columns: 1
+    Tautulli:
+      header: false
+      style: row
+      columns: 1
+    Overseerr:
+      header: false
+      style: row
+      columns: 1
+    Sonarr:
+      header: false
+      style: row
+      columns: 1
+  Row3:
+    header: false
+    style: row
+    columns: 4
+    Radarr:
+      header: false
+      style: row
+      columns: 1
+    Bazarr:
+      header: false
+      style: row
+      columns: 1
+    Prowlarr:
+      header: false
+      style: row
+      columns: 1
+    Sabnzbd:
+      header: false
+      style: row
+      columns: 1
+  Row4:
+    header: false
+    style: row
+    columns: 4
+    Nzbget:
+      header: false
+      style: row
+      columns: 1
+    WUD:
+      header: false
+      style: row
+      columns: 1
+    Upcoming:
+      header: false
+      style: row
+      columns: 1

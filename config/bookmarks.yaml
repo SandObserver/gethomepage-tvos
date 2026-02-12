@@ -1,0 +1,32 @@
+- Bookmarks:
+    - Terminal:
+        - icon: 'si-gnometerminal.svg-#ffffff'
+          href: 'ssh://user@localhost'
+    - Cleanarr:
+        - icon: '/icons/cleanarr.svg'
+          href: 'http://localhost'
+    - Kometa:
+        - icon: '/icons/kometa.svg'
+          href: 'http://localhost'
+    - Huntarr:
+        - icon: '/icons/huntarr.svg'
+          href: 'http://localhost'
+    - Profilarr:
+        - icon: '/icons/profilarr.svg'
+          href: 'http://localhost'
+    - Posterizarr:
+        - icon: '/icons/posterizarr.svg'
+          href: 'http://localhost'
+    - Maintainarr:
+        - icon: '/icons/maintainerr.svg'
+          href: 'http://localhost'
+    - HifiberryOS:
+        - icon: '/icons/airplay.svg'
+          href: 'ssh://user@localhost'
+    - CasaOS:
+        - icon: '/icons/settings.svg'
+          href: 'http://localhost'
+    - Refresh:
+        - icon: '/icons/refresh.svg'
+          href: 'javascript:window.location.reload();'
+          target: "_self"

@@ -1,0 +1,33 @@
+- datetime:
+    text_size: md
+    format:
+      timeStyle: short
+      hour12: true
+- openmeteo:
+    label: YOUR_CITY
+    latitude: YOUR_LATITUDE
+    longitude: YOUR_LONGITUDE
+    timezone: YOUR_TZ
+    units: metric
+    cache: 5
+    format:
+      maximumFractionDigits: 1
+- resources:
+    label: Media
+    expanded: true
+    disk:
+      - /disk1		# ← optional: /path/to/media
+      - /disk2		# ← optional: /path/to/media2
+- resources:
+    label: Time Machine
+    expanded: true
+    disk:
+      - /backup		# ← optional: /path/to/backup
+- resources:
+    cputemp: false
+    tempmin: 20
+    tempmax: 80
+    uptime: true
+    expanded: false
+    units: metric
+    refresh: 3000

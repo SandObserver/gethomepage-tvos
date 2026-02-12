@@ -1,0 +1,899 @@
+@layer base {
+  :root,
+  * {
+    --tw-gradient-from: transparent !important;
+    --tw-gradient-via: transparent !important;
+    --tw-gradient-stops: transparent !important;
+    --tw-gradient-to: transparent !important;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   Custom service card gradient colors
+   Add new services here — just one line per service
+   Format: --color-SERVICE: color1, color2;
+   ──────────────────────────────────────────────── */
+/* Map service names → gradients */
+li[data-name] a.content {
+  background: linear-gradient(var(--bg-colors, transparent, transparent));
+}
+
+/* dark default cards */
+li[data-name="Info"],
+li[data-name="CPU"],
+li[data-name="Plex"],
+li[data-name="Tautulli"],
+li[data-name="Ethernet"],
+li[data-name="Nzbget"] {
+  --bg-colors: #212123, #0f0f11;
+}
+
+/* unique gradients */
+li[data-name="Authentik"]         { --bg-colors: #fd4b2d, #715296; }
+li[data-name="Homebridge"]        { --bg-colors: #ca2e9f, #673ab7; }
+li[data-name="Adguard Home"]      { --bg-colors: #5eba00, #00a952; }
+li[data-name="Cloudflare Tunnel"] { --bg-colors: #f48120, #ef5a60; }
+li[data-name="Overseerr"]         { --bg-colors: #9333ea, #4f46e5; }
+li[data-name="Radarr"]            { --bg-colors: #007463, #ffc230; }
+li[data-name="Sonarr"]            { --bg-colors: #2193b5, #002c49; }
+li[data-name="Bazarr"]            { --bg-colors: #be4bdb, #7f1899; }
+li[data-name="Prowlarr"]          { --bg-colors: #e66000, #b84f04; }
+li[data-name="Sabnzbd"]           { --bg-colors: #91B42E, #F5B907; }
+li[data-name="WUD"]               { --bg-colors: #0096C7, #3988C9; }
+li[data-name="Conduit"]           { --bg-colors: #E7653E, #E64C6C; }
+
+
+/* ────────────────────────────────────────────────
+   Layout & Grid
+   ──────────────────────────────────────────────── */
+.grid {
+  margin: 1.5vw 1vw;
+}
+
+.grid .item {
+  display: block;
+  width: calc(100% - 2vw);
+  margin: 0.5vw 1vw;
+  z-index: 1;
+}
+
+.body .grid {
+  margin: 0 1vw;
+  margin-top: 0.5vw;
+}
+
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  backdrop-filter: blur(8px);          /* keep your preferred blur strength */
+  -webkit-backdrop-filter: blur(8px);
+
+  /* NEW: Blur starts lower (around 40–45% from top) */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,      /* top = fully sharp */
+    transparent 25%,     /* stay sharp until ~40–45% down the page */
+    black 40%,           /* start applying full blur here */
+    black 100%           /* bottom = fully blurred */
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 25%,
+    black 40%,
+    black 100%
+  );
+
+  pointer-events: none;
+}
+
+/* ────────────────────────────────────────────────
+   Header
+   ──────────────────────────────────────────────── */
+.header {
+  background: #5555;
+  border-radius: min(max(2vmax, 2rem), 3rem);
+  backdrop-filter: blur(3vmax);
+  margin: 1vw 0;
+}
+
+.header.glass {
+  position: relative !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border-radius: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+  backdrop-filter: blur(3px);
+  min-height: 100px;
+  z-index: 10;
+}
+
+.header.glass::before,
+.header.glass::after {
+  content: none !important;
+}
+
+.header.glass > * {
+  position: relative;
+  z-index: 5;
+}
+
+.services-group.header .apple-tv-card-title {
+  display: none;
+}
+
+
+/* ────────────────────────────────────────────────
+   Apple TV Card Core
+   ──────────────────────────────────────────────── */
+.apple-tv-card-container {
+  position: relative;
+  width: 100%;
+}
+
+.services-group.body .apple-tv-card-container {
+  padding-bottom: 3.4rem;
+}
+
+.apple-tv-card-container.no-title {
+  padding-bottom: 0;
+}
+
+.apple-tv-card-container > .apple-tv-card {
+  width: 100%;
+  border-radius: min(max(2vmax, 2rem), 3rem);
+  box-shadow: 0 0.25rem 0.25rem #0002;
+  transform-origin: 50%;
+  transition: transform 50ms ease-in-out;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+  max-height: 12rem;
+  min-height: 11rem;
+}
+
+.apple-tv-card-container > .apple-tv-card.not-rounded {
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apple-tv-card-container > .apple-tv-card {
+    transition: none;
+  }
+}
+
+/* Hover / focus — Apple TV effect */
+.apple-tv-card-container > .apple-tv-card.hover,
+.apple-tv-card-container > .apple-tv-card:focus-within {
+  box-shadow: 0 1.5rem 2rem 0.25rem #0005;
+  outline: none;
+  transform: translateZ(4rem);
+}
+
+.apple-tv-card-container > .apple-tv-card.hover + .apple-tv-card-title,
+.apple-tv-card-container > .apple-tv-card:focus-within + .apple-tv-card-title {
+  bottom: 0.4rem !important;
+  opacity: 1;
+}
+
+/* Inner layers — shadow & reflection (consolidated) */
+.apple-tv-card-container > .apple-tv-card > .shadow,
+.apple-tv-card-container > .apple-tv-card > .reflection {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3; /* shadow below reflection */
+  transition: all 0.12s ease-in-out, transform 0.18s ease-out;
+}
+
+.apple-tv-card-container > .apple-tv-card > .shadow {
+  background: #0002;
+  opacity: 0;
+  z-index: 3;
+}
+
+.apple-tv-card-container > .apple-tv-card > .reflection {
+  top: 0;
+  left: 0;
+  background-image: radial-gradient(#fff7, transparent 70%);
+  transform: translateY(-100%);
+  z-index: 4;
+}
+
+.apple-tv-card-container > .apple-tv-card.hover > .shadow,
+.apple-tv-card-container > .apple-tv-card:focus-within > .shadow {
+  opacity: 1;
+}
+
+.apple-tv-card-container > .apple-tv-card.hover > .reflection,
+.apple-tv-card-container > .apple-tv-card:focus-within > .reflection {
+  transform: translateY(0);
+}
+
+/* Content & Parallax */
+.apple-tv-card-container > .apple-tv-card > .content {
+  display: block !important;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-position: center center;
+  padding-bottom: 100%; /* ~16:9 */
+  z-index: 1;
+  position: relative !important;
+}
+
+.apple-tv-card-container > .apple-tv-card > .content * {
+  pointer-events: none;
+}
+
+.apple-tv-card-container > .apple-tv-card > .parallax-content {
+  transform-style: preserve-3d;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: transform 50ms ease-in-out;
+  z-index: 2;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apple-tv-card-container > .apple-tv-card > .parallax-content {
+    transition: none;
+  }
+}
+
+/* Title */
+.apple-tv-card-container > .apple-tv-card-title {
+  position: absolute;
+  pointer-events: none;
+  bottom: 1.3rem;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  text-align: center;
+  font-size: 1.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+  transition: opacity 0.12s ease-in-out, bottom 0.09s ease-in-out;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.apple-tv-card-container > .apple-tv-card-title.always-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apple-tv-card-container > .apple-tv-card-title {
+    transition: none;
+  }
+}
+
+.service-logo {
+    transform-style: preserve-3d;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: transform 50ms ease-in-out;
+    z-index: 2;
+    height: 70%;
+    padding: 2vw 1.5vw 0.5vw 1.5vw;
+}
+
+.service-logo svg {
+    box-sizing: content-box;
+    display: var(--fa-display, inline-block);
+    height: 2em;
+    overflow: visible;
+    vertical-align: -0.125em;
+    max-width: var(--fa-width, 3em);
+    max-height: var(--fa-height, 1em);
+}
+
+.service-logo img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: var(--fa-width, 2.8em);
+    max-height: var(--fa-height, 0.8em);
+}
+
+.service-tags {
+	pointer-events: none;
+}
+
+/* ────────────────────────────────────────────────
+   Custom tweaks & overrides
+   ──────────────────────────────────────────────── */
+.service-container {
+  position: absolute !important;
+  width: 94% !important;
+}
+
+.service-card .service-container:last-of-type {
+  bottom: 0.4vw;
+}
+
+.service-name {
+  text-align: center;
+  font-size: var(--text-md);
+}
+
+li[data-name="Tautulli"] .flex.flex-col.pb-1.mx-1 {
+  width: 90%;
+  position: absolute;
+  bottom: 0.4vw;
+}
+
+.service-block {
+  border-radius: min(max(1vmax, 1rem), 2rem);
+  background-color: color-mix(in oklab, rgb(var(--color-900)/1) 50%, transparent);
+}
+
+#layout-groups {
+  margin-top: 4em;
+}
+
+/* ────────────────────────────────────────────────
+   Control Center
+   ──────────────────────────────────────────────── */
+.control-center {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  width: 330px;
+  max-height: 85vh;
+  overflow-y: auto;
+  z-index: 900;
+  padding: 16px;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.25s ease;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.top-bar > .information-widget-openmeteo,
+.top-bar > .cc-toggle-button {
+  margin-left: auto;
+}
+
+.top-bar .information-widget-openmeteo {
+  margin-left: 4em;
+}
+
+.top-bar .information-widget-datetime span {
+  font-size: 16px !important;
+}
+
+.top-bar .information-widget-openmeteo .widget-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-bar .information-widget-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.top-bar .primary-text,
+.top-bar .secondary-text {
+  font-size: 12px;
+}
+
+.top-bar .information-widget-openmeteo > .widget-inner > .widget-inner-text {
+  display: none;
+}
+
+.cc-toggle-button a {
+  transition: all 0.2s ease;
+}
+
+.cc-toggle-button a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+}
+
+/* === Control Center button only when ITS content is visible === */
+#control-center-panel #cc-content[style*="display: block"] ~ .top-bar .cc-toggle-button a[title="Control Center"],
+#control-center-panel:has(#cc-content[style*="display: block"]) .top-bar .cc-toggle-button a[title="Control Center"] {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.08) !important;
+}
+
+/* === Calendar button only when ITS content is visible === */
+#control-center-panel #calendar-content[style*="display: block"] ~ .top-bar .cc-toggle-button a[title="Calendar"],
+#control-center-panel:has(#calendar-content[style*="display: block"]) .top-bar .cc-toggle-button a[title="Calendar"] {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.08) !important;
+}
+
+/* Content wrapper */
+.cc-content-wrapper {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.control-center.cc-open .cc-content-wrapper {
+  display: flex;
+}
+
+/* Toggles */
+.main-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.toggle {
+  all: unset;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 1;
+  background: rgb(0 0 0 / 0%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 24px;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle:hover {
+  transform: scale(1.03);
+  box-shadow:
+    inset 0 1px 3px rgba(255, 255, 255, 0.45),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.35),
+    0 6px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(14px);
+}
+
+.toggle:active {
+  transform: scale(0.98);
+}
+
+.toggle::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.18) 60%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  opacity: 0.85;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 8px rgba(255, 255, 255, 0.3),
+    0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+.toggle.large {
+  width: 140px;
+  height: 140px;
+}
+
+.toggle.small {
+  width: 140px;
+  height: 62px;
+  border-radius: 40px !important;
+}
+
+.toggle-label {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+  color: inherit;
+  text-align: center;
+}
+
+.toggle .resource-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.toggle .text-xs {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.toggle .h-1 {
+  height: 4px;
+}
+
+.toggle .resource-usage {
+  margin-top: 2px;
+}
+
+/* Special case: power toggle icon sizing */
+.toggle.large.power .w-7.h-7 {
+  width: calc(var(--spacing, 4px) * 17);
+  height: calc(var(--spacing, 4px) * 17);
+}
+
+.toggle.large.power .w-7.h-7 > div[style*="mask: url"] {
+  width: 70px !important;
+  height: 70px !important;
+}
+
+.toggle.large.power .toggle-label {
+  font-size: 16px !important;
+  margin-top: 10px !important;
+}
+
+/* ────────────────────────────────────────────────
+   Bottom Icons / Bookmarks
+   ──────────────────────────────────────────────── */
+.bottom-icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1em;
+}
+
+.bottom-icons > .grid {
+  margin: 0;
+}
+
+.bottom-icons .bookmark {
+  flex: 0 0 auto;
+}
+
+.bottom-icons a {
+  width: 62px !important;
+  height: 62px !important;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  background: rgb(0 0 0 / 0%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 1px 3px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.25),
+    0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bottom-icons a:hover {
+  transform: scale(1.08);
+  box-shadow:
+    inset 0 1px 4px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.35),
+    0 8px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.bottom-icons a:active {
+  transform: scale(0.95);
+}
+
+.bottom-icons a::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 45%,
+    rgba(255, 255, 255, 0.18) 70%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  opacity: 0.8;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.25);
+}
+
+.bottom-icons a:hover::before {
+  opacity: 1;
+}
+
+.bottom-icons .w-7,
+.bottom-icons .h-7 {
+  width: 28px;
+  height: 28px;
+}
+
+/* ────────────────────────────────────────────────
+   Calendar-specific overrides
+   ──────────────────────────────────────────────── */
+#calendar-content {
+  padding: 0 !important;
+}
+
+#calendar-content .apple-tv-card {
+  background: rgb(0 0 0 / 0%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 290px !important;
+  min-height: 290px !important;
+  width: 290px !important;
+  min-width: 290px !important;
+}
+
+#calendar-content .apple-tv-card:hover {
+  transform: scale(1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 3px rgba(255, 255, 255, 0.45),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.35),
+    0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+#calendar-content .apple-tv-card:active {
+  transform: scale(0.98);
+}
+
+#calendar-content .apple-tv-card::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.18) 60%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  opacity: 0.85;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 8px rgba(255, 255, 255, 0.3),
+    0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+#calendar-content .apple-tv-card:hover::after {
+  opacity: 1;
+}
+
+#calendar-content .apple-tv-card-container {
+  width: 290px !important;
+  margin: 0 auto !important;
+  height: 290px !important;
+}
+
+#calendar-content .aservice-title,
+#calendar-content .service-title,
+#calendar-content :is(.apple-tv-card-title, .reflection, .content),
+#calendar-content :is(.apple-tv-card-title, .reflection, .content):hover,
+#calendar-content :is(.apple-tv-card-title, .reflection, .content):active,
+#calendar-content :is(.apple-tv-card-title, .reflection, .content)::before,
+#calendar-content :is(.apple-tv-card-title, .reflection, .content)::after {
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
+}
+
+/* ────────────────────────────────────────────────
+   Content overrides (CC & Calendar hover states)
+   ──────────────────────────────────────────────── */
+#cc-content .toggle:hover,
+#cc-content .toggle:active,
+#cc-content .bookmark:hover a,
+#cc-content .bookmark:active a {
+  background: #fff !important;
+}
+
+#cc-content .toggle:hover::after,
+#cc-content .toggle:active::after {
+  content: none !important;
+}
+
+#cc-content .toggle:hover *,
+#cc-content .bookmark:hover * {
+  color: #000 !important;
+  stroke: #000 !important;
+  fill: #000 !important;
+}
+
+#cc-content .toggle:hover .bookmark-icon > div > div {
+  background: #000 !important;
+}
+
+#cc-content .toggle:hover .resource-usage {
+  background-color: #9d9d9d !important;
+}
+
+#cc-content .toggle:hover .resource-usage > div {
+  background-color: #000 !important;
+}
+
+#cc-content .bookmark:hover img {
+  filter: brightness(0) contrast(100%) !important;
+}
+
+#calendar-content .apple-tv-card:hover,
+#calendar-content .parallax-content:hover {
+  background: #fff !important;
+}
+
+#calendar-content .apple-tv-card:hover::after,
+#calendar-content .parallax-content:hover::after {
+  content: none !important;
+}
+
+#calendar-content .apple-tv-card:hover .parallax-content,
+#calendar-content .parallax-content:hover {
+  background: #fff !important;
+}
+
+#calendar-content .apple-tv-card:hover .parallax-content * ,
+#calendar-content .parallax-content:hover * {
+  color: #000 !important;
+  stroke: #000 !important;
+  fill: #000 !important;
+}
+
+
+/* ────────────────────────────────────────────────
+   Misc / Cleanup
+   ──────────────────────────────────────────────── */
+#footer {
+  display: none;
+}
+
+.h-\[calc\(100\%\+3em\)\] {
+  height: calc(100% + 1em);
+}
+
+/* V4 */
+
+
+/* Force-hide scrollbar cross-browser */
+html, body {
+    overflow-y: scroll;           /* keep scroll possible */
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* Edge/IE */
+}
+
+/* WebKit browsers (Chrome, Safari, new Edge) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    display: none !important;
+}
+
+/* Floating dots container - very high z-index + visible positioning */
+.custom-scroll-dots {
+    position: fixed !important;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999999 !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 14px;
+    pointer-events: auto;
+}
+
+/* Dot styling */
+.custom-scroll-dot {
+    width: 14px !important;
+    height: 14px !important;
+    border-radius: 50% !important;
+    border: 2px solid #999 !important;
+    background: transparent !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+}
+
+.custom-scroll-dot.active {
+    background: #333 !important;
+    border-color: #333 !important;
+    box-shadow: 0 0 0 4px rgba(50,50,50,0.25) !important;
+}
+
+.custom-scroll-dot:hover {
+    transform: scale(1.25) !important;
+    border-color: #555 !important;
+}
+
+/* Make sure body has enough height to scroll (for testing) */
+body {
+    min-height: 160vh !important;   /* ← remove this line later if not needed */
+}
+
+.custom-scroll-dots {
+    position: fixed !important;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) translateZ(0) !important;
+    -webkit-transform: translateY(-50%) translateZ(0) !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: auto;
+}
+
+/* Dot base style – light outline on dark bg */
+.custom-scroll-dot {
+    width: 14px !important;
+    height: 14px !important;
+    border-radius: 50% !important;
+    border: 2px solid rgba(255, 255, 255, 0.35) !important;  /* subtle white/grey outline */
+    background: transparent !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    -webkit-transform: translateZ(0) !important;
+}
+
+/* Active / filled state */
+.custom-scroll-dot.active {
+    background: rgba(255, 255, 255, 0.9) !important;     /* bright white when active */
+    border-color: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15) !important;  /* soft glow */
+}
+
+/* Hover effect – slightly larger + brighter */
+.custom-scroll-dot:hover {
+    transform: scale(1.25) !important;
+    border-color: rgba(255, 255, 255, 0.7) !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1) !important;
+}

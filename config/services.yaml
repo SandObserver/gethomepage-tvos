@@ -1,0 +1,221 @@
+- Home:
+    - Info:
+        href: 'http://localhost'
+        widget:
+          type: glances
+          url: 'http://localhost'
+          metric: info
+          chart: true
+          version: 4
+    - CPU:
+        href: 'http://localhost'
+        widgets:
+          - type: glances
+            url: 'http://localhost'
+            metric: cpu
+            version: 4
+          - type: glances
+            url: 'http://localhost'
+            metric: sensor:Package id 0
+            chart: false
+            version: 4
+    - Conduit:
+        icon: /icons/conduit.svg
+        href: 'http://localhost/stats.json'
+        container: conduit
+        widget:
+          type: customapi
+          url: http://localhost/stats.json
+          refreshInterval: 10000
+          method: GET
+          mappings:
+            - field: connectedClients
+              label: Connected Clients
+              format: number
+            - field: totalBytesDown
+              label: Total Download
+              format: bytes
+    - Homebridge:
+        href: 'http://localhost'
+        icon: /icons/homebridge.svg
+        container: big-bear-homebridge
+        widget:
+          type: homebridge
+          url: 'http://localhost'
+          username: YOUR_USERNAME
+          password: YOUR_PASSWORD
+- Row1:
+    - Ethernet:
+        href: 'http://localhost'
+        widgets:
+          - type: glances
+            url: 'http://localhost'
+            metric: 'network:YOUR NETWORK INTERFACE'
+            version: 4
+          - type: myspeed
+            url: 'http://localhost'
+            password: YOUR_PASSWORD
+    - Adguard Home:
+        icon: /icons/adguard.svg
+        href: 'http://localhost'
+        container: adguard-home
+        widget:
+          type: adguard
+          fields:
+            - queries
+            - blocked
+          url: 'http://localhost'
+          username: YOUR USER
+          password: YOUR PASSWORD
+    - Cloudflare Tunnel:
+        icon: cloudflare-zero-trust.svg
+        href: 'http://localhost'
+        container: cloudflared
+        widget:
+          type: cloudflared
+          fields:
+            - status
+          accountid: YOUR_CLOUDFLARE_ACCOUNT_ID
+          tunnelid: YOUR_CLOUDFLARE_ACCOUNT_ID
+          key: YOUR_CLOUDFLARE_API_TOKEN
+    - Authentik:
+        href: 'http://localhost'
+        icon: /icons/authentik.svg
+        container: big-bear-authentik
+        widget:
+          type: authentik
+          fields:
+            - loginsLast24H
+            - failedLoginsLast24H
+          url: 'http://localhost'
+          key: YOUR_AUTHENTIK_KEY
+          version: 2
+- Row2:
+    - Plex:
+        icon: /icons/plex.svg
+        href: 'http://localhost'
+        container: big-bear-plex
+        widget:
+          type: plex
+          fields:
+            - movies
+            - tv
+          url: 'http://localhost'
+          key: YOUR_AUTHENTIK_KEY
+    - Tautulli:
+        icon: /icons/tautulli.svg
+        href: 'http://localhost'
+        container: tautulli
+        widget:
+          type: tautulli
+          url: 'http://localhost'
+          key: YOUR_TAUTULLI_KEY
+          enableUser: true
+          showEpisodeNumber: true
+          expandOneStreamToTwoRows: true
+    - Overseerr:
+        icon: /icons/overseerr.svg
+        href: 'http://localhost'
+        container: overseerr
+        widget:
+          type: overseerr
+          fields:
+            - pending
+            - processing
+            - approved
+          url: 'http://localhost'
+          key: >-
+            YOUR_OVERSEER_KEY
+    - Sonarr:
+        icon: /icons/sonarr.svg
+        href: 'http://localhost'
+        container: sonarr
+        widget:
+          type: sonarr
+          fields:
+            - wanted
+            - queued
+          url: 'http://localhost'
+          key: YOUR_SONARR_KEY
+          enableQueue: false
+- Row3:
+    - Radarr:
+        icon: /icons/radarr.png
+        href: 'http://localhost'
+        container: radarr
+        widget:
+          type: radarr
+          fields:
+            - wanted
+            - queued
+          url: 'http://localhost'
+          key: YOUR_RADARR_KEY
+          enableQueue: false
+    - Bazarr:
+        icon: bazarr.svg
+        href: 'http://localhost'
+        container: bazarr
+        widget:
+          type: bazarr
+          url: 'http://localhost'
+          key: YOUR_BAZARR_KEY
+    - Prowlarr:
+        icon: prowlarr.svg
+        href: 'http://localhost'
+        container: prowlarr
+        widget:
+          type: prowlarr
+          fields:
+            - numberOfFailGrabs
+            - numberOfFailQueries
+          url: 'http://localhost'
+          key: YOUR_PRWLARR_KEY
+    - Sabnzbd:
+        icon: sabnzbd.svg
+        href: 'http://localhost'
+        container: sabnzbd
+        widget:
+          type: sabnzbd
+          url: 'http://localhost'
+          key: YOUR_SABNZBD_KEY
+- Row4:
+    - Nzbget:
+        icon: /icons/nzbget.png
+        href: 'http://localhost'
+        container: nzbget
+        widget:
+          type: nzbget
+          url: 'http://localhost'
+          username: YOUR_NZBGET_USER
+          password: YOUR_NZBGET_PASSWORD
+    - WUD:
+        icon: /icons/wud.svg
+        href: 'http://localhost'
+        container: wud
+        widget:
+          type: whatsupdocker
+          url: http://localhost
+    - Upcoming:
+        widget:
+          type: calendar
+          firstDayInWeek: sunday
+          view: agenda
+          maxEvents: 11
+          showTime: true
+          timezone: America/Toronto
+          previousDays: 3
+          integrations:
+            - type: sonarr
+              service_group: Row2
+              service_name: Sonarr
+              color: teal
+              baseUrl: 'http://localhost'
+              params:
+                unmonitored: true
+            - type: radarr
+              service_group: Row3
+              service_name: Radarr
+              color: yellow
+              baseUrl: 'http://localhost'
+              params:
+                unmonitored: true
