@@ -78,18 +78,24 @@
           accountid: YOUR_CLOUDFLARE_ACCOUNT_ID
           tunnelid: YOUR_CLOUDFLARE_ACCOUNT_ID
           key: YOUR_CLOUDFLARE_API_TOKEN
-    - Authentik:
-        href: 'http://localhost'
-        icon: /icons/authentik.svg
-        container: big-bear-authentik
+    - Duplicati:
+        icon: /icons/duplicati.svg
+        href: http://localhost/
+        container: duplicati
         widget:
-          type: authentik
-          fields:
-            - loginsLast24H
-            - failedLoginsLast24H
-          url: 'http://localhost'
-          key: YOUR_AUTHENTIK_KEY
-          version: 2
+          type: customapi
+          url: http://localhost/api/summary
+          refreshInterval: 50000
+          method: GET
+          mappings:
+            - field: totalBackups
+              label: Backups
+            - field: secondsSinceLastBackup
+              label: Latest
+              format: duration
+            - field: totalBackupSize
+              label: Size
+              format: bytes
 - Row2:
     - Plex:
         icon: /icons/plex.svg
